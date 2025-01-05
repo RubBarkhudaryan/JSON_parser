@@ -1,99 +1,94 @@
 #include "parser.h"
 
-std::size_t fileLength(std::string filePath)
+std::size_t fileLength(const std::string& filePath)
 {
-	std::size_t length{};
+    std::size_t length{};
 
-	std::string line;
+    std::string line;
 
-	std::ifstream file;
+    std::ifstream file;
 
-	file.open(filePath);
+    file.open(filePath);
 
-	if (file)
-	{
-		while (std::getline(file, line))
-			++length;
+    if (file)
+    {
+        while (std::getline(file, line))
+            ++length;
 
-		file.close();
-	}
+        file.close();
+    }
 
-	return length;
+    return length;
 }
 
-std::vector<std::string> parseJSON(std::string filePath)
+std::vector<std::string> parseJSON(const std::string& filePath)
 {
-	std::vector<std::string> result;
+    std::vector<std::string> result;
 
-	std::ifstream file;
+    std::ifstream file(filePath);
 
-	std::regex valid_property("\\s\"(.*)\":(.*)");
+    std::regex multi_property("\\s*\"([a-zA-Z0-9_-]+)\"\\s*[\:]\\s*(([\[])|([\{]))\\s*");
 
-	file.open(filePath);
+    if (file)
+    {
+        std::string text = "";
 
-	if (file)
-	{
-		std::string text = "";
-		std::string temp = "";
+        std::size_t length = fileLength(filePath);
+        std::size_t it = 0;
 
-		std::size_t length = fileLength(filePath);
-		std::size_t it = 0;
+        result.push_back("{\n");
 
-		result.push_back("{\n");
+        while (std::getline(file, text) && it < length) {
 
-		while (std::getline(file, text) && it < length) {
+            if (text.empty() || it == 0 || it == length - 1)
+            {
+                ++it;
+                continue;
+            }
 
-			if (text.empty() || it == 0 || it == length-1)
-			{
-				++it;
-				continue;
-			}
+            if (std::regex_match(text, multi_property) && it < length)
+            {
+                int braces_count = 1;
+                
+                std::string temp;
 
-			if (std::regex_match(text, valid_property) && it < length)
-			{
-				if (!temp.empty())
-					result.push_back(temp);
-				temp = "";
-			}
+                temp += (text + '\n');
 
-			temp += (text + '\n');
-			++it;
-		}
+                while (std::getline(file, text) && it < length)
+                {
+                    if (static_cast<int>(text.find('{')) != -1 || static_cast<int>(text.find('[')) != -1)
+                        ++braces_count;
+                    else if (static_cast<int>(text.find('}')) != -1 || static_cast<int>(text.find(']')) != -1)
+                        --braces_count;
+                    if (braces_count == 0)
+                    {
+                        ++it;
+                        temp += (text + '\n');
+                        break;
+                    }
+                    temp += (text + '\n');
+                    ++it;
+                }
+                result.push_back(temp);
+                temp = "";
+            }
+            else if (!std::regex_match(text, multi_property) && it < length)
+                result.push_back(text + '\n');
 
-		result.push_back(temp);
+            ++it;
+        }
 
-		result.push_back("}\n");
+        result.push_back("}\n");
 
-		file.close();
-	}
+        file.close();
+    }
 
-	return result;
+    return result;
 }
 
 
-void printParsedJSON(std::vector<std::string> parsedJSON)
+void printParsedJSON(const std::vector<std::string>& parsedJSON)
 {
-	for (int i = 0; i < parsedJSON.size(); ++i)
-		std::cout << i + 1 << " " << parsedJSON[i];
+    for (int i = 0; i < parsedJSON.size(); ++i)
+        std::cout << i + 1 << " " << parsedJSON[i];
 }
-
-
-/*
-*
-* basic manipulations read and write in data.json
-
-	std::ofstream newFile("./data.json");
-
-	newFile << "{\n\"obj\":\"Hello world\"\n}";
-
-	newFile.close();
-
-	std::ifstream readFile("./data.json");
-
-	std::string myText;
-
-	while (getline(readFile, myText)) {
-		std::cout << myText;
-	}
-
-*/

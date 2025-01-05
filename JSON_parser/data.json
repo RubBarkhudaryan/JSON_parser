@@ -1,54 +1,54 @@
 {
-	"stringProperty": "Hello, world!",
-	"integerProperty": 42,
-	"floatProperty": 3.14159,
-	"booleanProperty": true,
-	"nullProperty": null,
-	"objectProperty": {
-		"nestedString": "Nested value",
-		"nestedArray": [
-			1,
-			2,
-			3
-		]
-	},
-	"arrayProperty": [
-		"String in array",
-		123,
-		{
-			"arrayObjectKey": "value"
-		}
-	],
-	"dateProperty": "2024-12-27T00:00:00Z",
-	"urlProperty": "https://example.com",
-	"multiLevelObject": {
-		"level1": {
-			"level2": {
-				"level3": "Deep value"
-			}
-		}
-	},
-	"emptyArray": [],
-	"emptyObject": {},
-	"geoLocation": {
-		"latitude": 37.7749,
-		"longitude": -122.4194
-	},
-	"binaryData": "SGVsbG8gd29ybGQ=",
-	"enumProperty": "Option1",
-	"currency": {
-		"amount": 100.50,
-		"currencyCode": "USD"
-	},
-	"id": "abc123",
-	"status": "active",
-	"tags": [
-		"example",
-		"json",
-		"properties"
-	],
-	"metadata": {
-		"createdBy": "user",
-		"createdAt": "2024-12-27T10:00:00Z"
-	}
+  "stringProperty": "Hello, world!",
+  "integerProperty": 42,
+  "floatProperty": 3.14159,
+  "booleanProperty": true,
+  "nullProperty": null,
+  "objectProperty": {
+    "nestedString": "Nested value",
+    "nestedArray": [
+      1,
+      2,
+      3
+    ]
+  },
+  "arrayProperty": [
+    "String in array",
+    123,
+    {
+      "arrayObjectKey": "value"
+    }
+  ],
+  "dateProperty": "2024-12-27T00:00:00Z",
+  "urlProperty": "https://example.com",
+  "multiLevelObject": {
+    "level1": {
+      "level2": {
+        "level3": "Deep value"
+      }
+    }
+  },
+  "emptyArray": [],
+  "emptyObject": {},
+  "geoLocation": {
+    "latitude": 37.7749,
+    "longitude": -122.4194
+  },
+  "binaryData": "SGVsbG8gd29ybGQ=",
+  "enumProperty": "Option1",
+  "currency": {
+    "amount": 100.50,
+    "currencyCode": "USD"
+  },
+  "id": "abc123",
+  "status": "active",
+  "tags": [
+    "example",
+    "json",
+    "properties"
+  ],
+  "metadata": {
+    "createdBy": "user",
+    "createdAt": "2024-12-27T10:00:00Z"
+  }
 }
