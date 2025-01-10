@@ -12,7 +12,6 @@ int main()
 
 		std::visit(
 			[](const auto& value) {
-
 				std::cout << value << "\n";
 			},
 			pair.second

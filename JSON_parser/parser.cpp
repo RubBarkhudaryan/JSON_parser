@@ -162,34 +162,6 @@ Explanation of the Regex: propertyValue
 */
 
 
-/*
-
-Explanation of the Regex: propertyValue
-
-1. ( \"([a-zA-Z0-9_-]+)\" ) -> 
-    Captures the property name inside double quotes. Example: "key" matches and captures key.
-
-2. ( :\" ) -> 
-    Matches the colon (:) separating the key and value.
-
-3. ( (\"[^\"]*\"|[^,\\n]*) ) ->
-
-    Matches:
-    A quoted string: ( "[^"]*" ) (anything inside double quotes), or
-    An unquoted value: ( [^,\\n]* ) (everything up to the next comma or newline).
-    This ensures that commas inside quotes are preserved as part of the value.
-
-
-4. ( \\s*(?:,|\\n|$) ) ->
-
-    Matches optional trailing whitespace followed by:
-    A comma (,) or
-    A newline (\n) or
-    The end of the string ($).
-
-*/
-
-
 
 std::map<std::string, std::variant<double, bool, std::nullptr_t, std::string>> parseJSON(const std::vector<std::string>& jsonStr)
 {
